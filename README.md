@@ -1,4 +1,8 @@
-## Vamos a crear un backend server en node
+## MEAN
+
+Vamos a crear un backend server en Node para que de servicios a nuestra app adminPro en Angular
+
+Para ello usaremos el servidor Express que corre en Node y usaremos la base de datos no relacional Mongo
 
 Creamos una nueva carpeta de proyecto y dentro de ella ejecutamos:
 
@@ -97,16 +101,16 @@ y ya lo recarga automáticamente cada vez que guardemos un cambio.
 
 Documentación: `https://docs.mongodb.com/manual/installation/`
 
-Nos vamos a `Install MongoDB Community Edition on Windows`
+Nos vamos a `Install MongoDB Community Edition on Windows` y lo instalamos como servicio windows
 
 Una vez instalado creamos carpeta en la unidad `c:\data\db`
-
-Ejecutamos desde consola con permisos de Administrador `"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe" --dbpath="c:\data\db"`
 
 Ejecutamos desde otra consola con permisos de Administrador `"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe"`
 
 
-Instalamos Robo 3T 
+## ROBO 3T
+
+Instalamos Robo 3T que no ayudará a trabajar con la base de datos Mongo
 `https://robomongo.org/download`
 
 
@@ -120,6 +124,8 @@ Getting started > `npm install mongoose --save` --save porque es una dependencia
 
 ## GIT
 
+Creamos un repositorio remoto en Github
+
 Iniciamos el repositorio local > `git init`
 
 Añadimos todos los cambios al stage > `git add .`
@@ -131,3 +137,99 @@ Se han añadido demasiado archivos
 Sacamos todo del stage > `git reset`
 
 Creamos el archivo `.gitignore` y añadimos la carpeta node_modules
+
+Añadimos todos los cambios al stage > `git add .`
+
+Realizamos el primer commit `git commit -m "Primer commit"`
+
+Enlazamos el repositorio local al repositorio remoto `git remote add origin https://github.com/Awandor/adminProBackend.git`
+
+Subimos los cambios al repositorio remoto `git push -u origin master`
+
+Creamos un tag > `git tag -a v0.0.1 -m "Instalaciones y configuraciones básicas"`
+
+Subimos el tag al repositorio remoto > `git push --tags`
+
+Creamos un Release en Github
+
+
+## CREAR BASE DE DATOS Y PRIMERA COLECCION
+
+Ejecutamos desde otra consola con permisos de Administrador `"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe"` para arrancar Mongo
+
+Abrimos `Robo 3T`, nos conectamos a `Localhost`, creamos base de datos `hospitalDB` y en ella creamos colección `usuarios` para crear un
+nuevo registro vamos a `insertar documento`. Lo que se inserta son objetos JSON, guardamos y para ver el registro doble click en la colección,
+si se ha hecho alguna modificación en la colección que no vemos damos al botón play
+
+
+## CREAR MODELO DE USUARIOS EN EL BACK-END
+
+Los modelos son controladores de la base de datos. Gracias a Mongoose tenemos cantidades de métodos que nos facilitan esto.
+
+Creamos una carpeta `models` y dentro un archivo `usuario.js`
+
+
+# CREAR RUTAS DE LOS SERVICIOS DEL USUARIO
+
+Creamos carpeta `routes` y en ella vamos a ir creando archivos con las rutas para ir modulando la app.
+
+Creamos archivo `app.route.js`
+
+Levantamos la app con `npm start` y comprobamos en Postman también que todo funciona
+
+
+## ARCHIVO JSHint
+
+Para evitar los warnings de ES6 de
+creamos archivo `.jshintrc`
+
+
+## BODY PARSER NODE
+
+Node.js body parsing middleware.
+Instalamos desde `https://www.npmjs.com/package/body-parser`
+
+`npm install body-parser --save`
+
+Importamos la librería en `app.js`
+
+De la parte de Ejemplos tomamos la que dice // parse application/x-www-form-urlencoded
+
+## MONGOOSE UNIQUE VALIDATOR
+
+Instalamos el plug-in de Mongoose
+
+`npm install mongoose-unique-validator --save`
+
+Utilizamos este plug-in en el modelo usuario
+
+
+## NODE BCYPT
+
+Instalamos la librería node.bcrypt.js de `https://www.npmjs.com/package/bcrypt` que encripta en una sóla via, no se puede recontruir.
+
+`npm install bcrypt --save`
+
+Importamos la librería en `usuario.route.js`
+
+
+## POSTMAN
+
+Al hacer pruebas de POST (añadir), PUT (actualizar) hay que seleccionar en `Body` la opción `x-www-form-urlencoded`
+
+
+## JSON WEB TOKEN
+
+Instalamos la librería jsonwebtoken de `https://www.npmjs.com/package/jsonwebtoken`
+
+`npm install jsonwebtoken --save`
+
+Importamos la librería en `login.route.js`
+
+Para ver cómo funciona el token podemos copiar el token generado e ir a `https://jwt.io` y pegarlo ahí. Vemos las partes del token y la
+información que contiene. Copiamos nuestro seed y lo pegamos en Verify Signature.
+
+Creamos carpeta `config` y dentro un archivo nuevo `config.js` ahí copiamos nuestro seed. Lo importamos a `login.route.js`
+
+Vamos a optimizar nuestro middleware para darle flexibilidad, primero lo modulamos creamos carpeta `middlewares` y dentro archivo nuevo `autenticacion.js`
+y lo importamos en `usuario.route.js`
