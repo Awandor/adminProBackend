@@ -1,7 +1,3 @@
-const Usuario = require( '../models/usuario' );
-
-const bcrypt = require( 'bcrypt' );
-
 const jwt = require( 'jsonwebtoken' );
 
 const SEED = require( '../config/config' ).SEED;

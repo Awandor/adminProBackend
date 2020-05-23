@@ -233,3 +233,50 @@ Creamos carpeta `config` y dentro un archivo nuevo `config.js` ahí copiamos nue
 
 Vamos a optimizar nuestro middleware para darle flexibilidad, primero lo modulamos creamos carpeta `middlewares` y dentro archivo nuevo `autenticacion.js`
 y lo importamos en `usuario.route.js`
+
+
+## BUSQUEDAS
+
+Creamos una nueva ruta `busqueda.route.js`
+
+Copiamos el código de `app.route.js`
+
+
+## UPLOAD DE IMAGENES
+
+Creamos una nueva ruta `upload.route.js`
+
+Copiamos el código de `app.route.js`
+
+Instalamos la librería express-fileupload - npm de `https://www.npmjs.com/package/express-fileupload`
+
+`npm i express-fileupload --save`
+
+Importamos la librería en `upload.route.js`
+
+En Postman escogemos en Body `form-data` y en Key `file`
+
+Creamos carpeta `uploads` con subcarpetas hopitales, medicos, usuarios
+
+
+## MOSTRAR IMAGENES (no se implementa en la app)
+
+Librería para mostrar imágenes.
+
+`https://github.com/expressjs/serve-index`
+
+`npm install serve-index --save`
+
+Código a tener a mano:
+
+`var serveIndex = require('serve-index');`
+`app.use(express.static(__dirname + '/'))`
+`app.use('/uploads', serveIndex(__dirname + '/uploads'));`
+
+Vamos a `app.js` y añadimos Serer Index config
+
+Creamos una nueva ruta `imagenes.route.js` copiamos código de `app.route.js`
+
+La importamos en `app.js`
+
+Creamos carpeta `assets` y metemos en ella la imagen `no-img.jpg`

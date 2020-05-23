@@ -1,6 +1,6 @@
-var express = require( 'express' );
+const express = require( 'express' );
 
-var app = express(); // defino mi servidor express
+const app = express(); // defino mi servidor express
 
 
 // Traemos la ruta principal de app.js

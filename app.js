@@ -6,7 +6,7 @@ var express = require( 'express' );
 
 var mongoose = require( 'mongoose' );
 
-var bodyParser = require( 'body-parser' )
+var bodyParser = require( 'body-parser' );
 
 
 // ==================================
@@ -16,10 +16,10 @@ var bodyParser = require( 'body-parser' )
 var app = express(); // defino mi servidor express
 
 // parse application/x-www-form-urlencoded
-app.use( bodyParser.urlencoded( { extended: false } ) )
+app.use( bodyParser.urlencoded( { extended: false } ) );
 
 // parse application/json
-app.use( bodyParser.json() )
+app.use( bodyParser.json() );
 
 
 // ==================================
@@ -35,6 +35,19 @@ mongoose.connection.openUri( 'mongodb://localhost:27017/hospitalDB', ( error, re
 } );
 // hospitalDB es el nombre de la base de datos, si no está creada se creará
 
+// ==================================
+// Serer Index config
+// ==================================
+
+var serveIndex = require( 'serve-index' );
+
+app.use( express.static( __dirname + '/' ) );
+
+app.use( '/uploads', serveIndex( __dirname + '/uploads' ) );
+
+// De esta manera no se controla la capeta de imágenes, un usuario tendría acceso a todas las imágenes si conoce la ruta
+
+
 
 // ==================================
 // Rutas
@@ -49,18 +62,34 @@ mongoose.connection.openUri( 'mongodb://localhost:27017/hospitalDB', ( error, re
     });
 
 }); */
-var appRoutes = require( './routes/app.route' );
+var appRoute = require( './routes/app.route' );
 
-var usuarioRoutes = require( './routes/usuario.route' );
+var usuarioRoute = require( './routes/usuario.route' );
 
-var loginRoutes = require( './routes/login.route' );
+var loginRoute = require( './routes/login.route' );
 
-// Ahora para utilizar appRoutes vamos a declarar un middleware que es algo que se ejecuta antes de que se resuelvan otras rutas
+var hospitalRoute = require( './routes/hospital.route' );
 
-app.use( '/', appRoutes ); // Cuando cualquier petición coincida con la ruta quiero que se ejecute appRoutes
-app.use( '/usuario.route', usuarioRoutes ); // Cuando cualquier petición coincida con la ruta quiero que se ejecute usuarioRoutes
-app.use( '/login.route', loginRoutes ); // Cuando cualquier petición coincida con la ruta quiero que se ejecute appRoutes
+var medicoRoute = require( './routes/medico.route' );
 
+var busquedaRoute = require( './routes/busqueda.route' );
+
+var uploadRoute = require( './routes/upload.route' );
+
+var imagenRoute = require( './routes/imagen.route' );
+
+
+// Ahora para utilizar appRoute vamos a declarar un middleware que es algo que se ejecuta antes de que se resuelvan otras rutas
+
+app.use( '/usuario.route', usuarioRoute ); // Cuando cualquier petición coincida con la ruta quiero que se ejecute usuarioRoutes
+app.use( '/login.route', loginRoute );
+app.use( '/hospital.route', hospitalRoute );
+app.use( '/medico.route', medicoRoute );
+app.use( '/busqueda.route', busquedaRoute );
+app.use( '/upload.route', uploadRoute );
+app.use( '/imagen.route', imagenRoute );
+
+app.use( '/', appRoute ); // Tiene que ser la última ruta
 
 // ==================================
 // Escuchar peticiones al servidor express
