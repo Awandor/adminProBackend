@@ -14,7 +14,8 @@ const usuarioSchema = new Schema( {
   email: { type: String, unique: true, required: [ true, 'El email es obligatorio' ] },
   password: { type: String, required: [ true, 'La contraseña es obligatoria' ] },
   img: { type: String, required: false },
-  role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos }
+  role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos },
+  google: { type: Boolean, default: false }
 } );
 
 usuarioSchema.plugin( uniqueValidator, { message: '{PATH} ya existe en la base de datos' } ); // {PATH} es el nombre de la propiedad

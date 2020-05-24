@@ -280,3 +280,42 @@ Creamos una nueva ruta `imagenes.route.js` copiamos código de `app.route.js`
 La importamos en `app.js`
 
 Creamos carpeta `assets` y metemos en ella la imagen `no-img.jpg`
+
+
+## CREAR ID DE LA APP Y UN ID SECRETO DE SERVIDOR EN GOOGLE DEVELOPER
+
+Vamos a `https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin`
+
+Pulsamos en `Configue a project`
+
+El origen autorizado es el servidor del back-end: `http://localhost:3000` Lo necesitamos de manera provisional para hacer pruebas
+
+y hay que añadir el servidor que usaremos desde Angular front-end: `http://localhost:4200`
+
+Usaremos la opción `web browser`
+
+Tomamos nota del Client ID y del Client Secret
+
+Para ir a mis APIs de Google: `https://console.developers.google.com/`
+
+Vamos a crear una app demo para ver como funciona el Sign-in de Google, más adelante lo implementaremos en el proyecto de Angular.
+
+Dentro de la carpeta de app demo `npm init` seguir con el README de la demo.
+
+
+## VALIDAR TOKEN DE GOOGLE
+
+Vamos a `login.route.js` y añadimos un post
+
+Vamos a la documentación de Google Sign-in > Athenticate with a Backend Server > Verify the integrty of the ID token > pestaña node.js
+
+Instalamos en la app `npm install google-auth-library --save`.
+
+En Postman hay que escoger Body > x-www-form-urlencoded
+añadir key > token y en value pegamos el token generado por la demo, los token expiran a los pocos minutos
+
+
+## CREAR DOCUMENTACIÓN DE LOS SERVICIOS DE FORMA AUTOMATICA
+
+Este backend server es esencialmente un montón de servicios. En Postman tenemos un ejemplo de cada uno dentro de la colección backEndAdminPro, ahí
+click botón derecho > Publish Doc. Hay que saber que será público
